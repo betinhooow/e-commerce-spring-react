@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.roberto.curscomc.domain.Categoria;
 import com.roberto.curscomc.repositories.CategoriaRepository;
+import com.roberto.curscomc.services.exception.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -15,10 +16,12 @@ public class CategoriaService {
 	private CategoriaRepository repo;
 	
 	public Categoria find(Integer id){
-		Optional<Categoria> obj = repo.findById(id); 
 		//no java 7 seria Categoria obj = repo.finOne
+		Optional<Categoria> obj = repo.findById(id); 
 		
-		return obj.orElse(null);
+		//se o obj for nulo, estoura a exception pelo Handler e não Try catch
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: "+ Categoria.class.getName()));
 	}
 	
 }
