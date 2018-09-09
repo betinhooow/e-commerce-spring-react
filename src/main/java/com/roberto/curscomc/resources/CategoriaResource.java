@@ -71,7 +71,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	//BUSCANDO TODAS CATEGORIAS
+	//BUSCANDO TODAS CATEGORIAS EM PAGINA
 	@RequestMapping(value="/page", method=RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
 			@RequestParam(value="page", defaultValue="0") Integer page, 
