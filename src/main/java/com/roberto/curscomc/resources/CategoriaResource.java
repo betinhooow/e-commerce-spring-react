@@ -1,6 +1,8 @@
 package com.roberto.curscomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.roberto.curscomc.domain.Categoria;
+import com.roberto.curscomc.dto.CategoriaDTO;
 import com.roberto.curscomc.services.CategoriaService;
 
 @RestController
@@ -49,5 +52,16 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	//BUSCANDO TODAS CATEGORIAS
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> list = service.findAll();	
+		//Para evitar que ao listar as categorias, sejam listados os produtos tambem, precisamos passar o conteudo da lista da categoria
+		//para a lista DTO, que é limitada apenas a id e nome.
+		//abaixo é feita essa transferencia
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
