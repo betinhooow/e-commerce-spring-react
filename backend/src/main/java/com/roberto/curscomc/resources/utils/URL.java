@@ -7,6 +7,7 @@ import java.util.List;
 
 public class URL {
 	
+	//recebe a string do jeito que vem na url, ex: 'fernando%20ok' e decodifica para, ex: 'fernando ok'
 	public static String decodeParam(String s) {
 		try {
 			return URLDecoder.decode(s, "UTF-8");
