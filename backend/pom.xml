@@ -52,6 +52,11 @@
 			<artifactId>spring-boot-devtools</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		
 		<!-- SpringFox Swagger UI -->
 		<dependency>
 			<groupId>io.springfox</groupId>
