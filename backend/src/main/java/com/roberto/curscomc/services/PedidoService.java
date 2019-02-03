@@ -38,6 +38,9 @@ public class PedidoService {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public Pedido find(Integer id){
 		//no java 7 seria Categoria obj = repo.finOne
 		Optional<Pedido> obj = repo.findById(id); 
@@ -70,6 +73,8 @@ public class PedidoService {
 		}
 		
 		itemPedidoRepository.saveAll(obj.getItens());
+		emailService.sendOrderConfirmationEmail(obj);
+		
 		return obj;
 	}
 	
